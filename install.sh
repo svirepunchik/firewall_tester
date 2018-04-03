@@ -11,13 +11,8 @@ etcfld="/etc/firewall.tester"
 optfld="/opt/firewall.tester"
 usrbin="/usr/sbin/firewall.tester"
 
-mkdir -p $etcfld
-mkdir -p $optfld
-cp -rp ./firewall.tester.sh $optfld
-cp -rp ./hook.all.sh $optfld
-cp -rp ./hook.server.sh $optfld
-
-cp -rp ./server.list $etcfld
+cp -rp ./etc /
+cp -rp ./opt /
 cp -rp ./README.md $etcfld
 cp -rp ./LICENCE $etcfld
 
