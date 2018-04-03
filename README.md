@@ -1,6 +1,6 @@
 # firewall test script
 TODO:
-install.sh & port ranges
+port ranges
 ## In English:
 comnig soon
 
