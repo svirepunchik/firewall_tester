@@ -26,6 +26,7 @@ chmod -R a+r $etcfld
 mkdir -p /var/log
 touch /var/log/firewall.scan.log
 
+rm -rf $usrbin
 ln -s $optfld/firewall.tester.sh $usrbin
 
 tmpcron=`mktemp`
@@ -33,5 +34,7 @@ crontab -l > $tmpcron
 echo "0 22 * * * $usrbin -b" >> $tmpcron
 crontab $tmpcron
 rm -rf $tmpcron
+
+echo "installed. run firewall.tester -h"
 
 exit 0
