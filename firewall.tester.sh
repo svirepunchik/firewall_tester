@@ -4,11 +4,11 @@
 # firewall test script
 # dependencies: nmap, tee, awk, sed, grep
 
-OPTS=`getopt -o hsalb: --long help,server,allowed,logfile,batch: -n 'parse-options' -- "$@"`
+OPTS=`getopt -o hs:a:l:b --long help,server:,allowed:,logfile:,batch -n 'parse-options' -- "$@"`
 
 if [ $? != 0 ] ; then echo "Failed parsing options." >&2 ; exit 1 ; fi
 
-usage="$(basename "$0") [-h] [-s server_name|server_ip] [-a \"allowed_port1, allowed_port2, ..., allowed_port n\"] [-l /path/to/log.file]
+usage="$(basename "$0") [-h] [-s server_name|server_ip] [-a \"allowed_port1, allowed_port2, ..., allowed_port n\"] [-l /path/to/log.file] [-b]
 this script scans all the server ports
 where:
     -h | --help     show this help text
