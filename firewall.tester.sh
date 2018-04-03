@@ -42,7 +42,7 @@ while true; do
     -s | --server ) server="$2"; shift; shift ;;
     -a | --allowed ) allowed="$2"; shift; shift ;;
     -l | --logfile ) logfile="$2"; shift; shift ;;
-    -b | --batch ) batch=true; shift; shift ;;
+    -b | --batch ) batch=true; shift ;;
     -- ) shift; break ;;
     * )  if [ -z "$1" ]; then break; else echo ""; echo "$1 is not a valid option"; echo ""; echo "$usage"; exit 1; fi;;
   esac
@@ -83,11 +83,12 @@ while [ -h "$SOURCE" ]; do
   SOURCE="$(readlink "$SOURCE")"
   [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE"
 done
-DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+OPTDIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+if [[ -f /etc/firewall.tester/server.list ]]; then ETCDIR="/etc/firewall.tester"; else ECTDIR=$OPTDIR; fi
 
 if [[ $batch ]]
 then
-    if [[ ! -e $DIR/server.list ]]; then echo $(date +"%Y.%m.%d %H:%M:%S") - $DIR/server.list is not found. aborting | $teebin -a $logfile; exit 1; fi
+    if [[ ! -e $ETCDIR/server.list ]]; then echo $(date +"%Y.%m.%d %H:%M:%S") - $ETCDIR/server.list is not found. aborting | $teebin -a $logfile; exit 1; fi
     flag=0
     while read LINE; do
         if [[ -z "$LINE" ]]; then continue; fi
@@ -95,24 +96,24 @@ then
         check_server $bserver $ballowed
         if [[ $? != 0 ]]; then
             flag=1;
-            if [[ -e $DIR/hook.server.sh ]]; then
+            if [[ -e $OPTDIR/hook.server.sh ]]; then
                 echo $(date +"%Y.%m.%d %H:%M:%S") - calling per server hook | $teebin -a $logfile
-                $DIR/hook.server.sh "$bserver" "$ballowed" "$OPENPORTS"
+                $OPTDIR/hook.server.sh "$bserver" "$ballowed" "$OPENPORTS"
             fi
         fi
-    done < $DIR/server.list
+    done < $ETCDIR/server.list
     if [[ $flag -eq 1 ]]; then
-        if [[ -e $DIR/hook.all.sh ]]; then
+        if [[ -e $OPTDIR/hook.all.sh ]]; then
             echo $(date +"%Y.%m.%d %H:%M:%S") - calling common hook | $teebin -a $logfile
-            $DIR/hook.all.sh
+            $OPTDIR/hook.all.sh
         fi
     fi
 else
     check_server $server $allowed
     if [[ $? != 0 ]]; then
-        if [[ -e $DIR/hook.server.sh ]]; then
+        if [[ -e $OPTDIR/hook.server.sh ]]; then
             echo $(date +"%Y.%m.%d %H:%M:%S") - calling per server hook | $teebin -a $logfile
-            $DIR/hook.server.sh "$server" "$allowed" "$OPENPORTS"
+            $OPTDIR/hook.server.sh "$server" "$allowed" "$OPENPORTS"
         fi
     fi
 fi
