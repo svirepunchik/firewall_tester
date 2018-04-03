@@ -22,4 +22,6 @@ crontab -l | grep -v firewall.tester > $tmpcron
 crontab $tmpcron
 rm -rf $tmpcron
 
+echo "uninstalled."
+
 exit 0
