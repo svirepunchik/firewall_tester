@@ -14,7 +14,7 @@ usrbin="/usr/sbin/firewall.tester"
 cp -rp ./etc /
 cp -rp ./opt /
 cp -rp ./README.md $etcfld
-cp -rp ./LICENCE $etcfld
+cp -rp ./LICENSE $etcfld
 
 chmod -R a+x $optfld
 chmod -R a+r $etcfld
