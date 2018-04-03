@@ -63,7 +63,7 @@ function check_server () {
     ALLOWEDGREP=`echo $ALLOWED | $sedbin -e 's/ *, */\\\|/g'`
     OPENPORTS=`$grepbin -e '.*open.[^port]' $NMAPTMP | $grepbin -v "$ALLOWEDGREP"`
 
-    rm -rf $nmaptmp
+    rm -rf $NMAPTMP
 
     if [[ -n "$OPENPORTS" ]]; then
         echo $(date +"%Y.%m.%d %H:%M:%S") - YOUR SERVER IS NOT SECURE | $teebin -a $logfile
