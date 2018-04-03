@@ -4,7 +4,6 @@
 # firewall test script uninstaller
 
 iam=`whoami`
-echo $iam;
 
 if [[ $iam != "root" ]]; then echo "you must be root. please run sudo ./uninstall.sh"; exit 1; fi
 
@@ -16,7 +15,7 @@ rm -rf $usrbin
 rm -rf $optfld
 rm -rf $etcfld
 
-rm -rf /var/log/firewall.tester.log
+rm -rf /var/log/firewall.scan.log
 
 tmpcron=`mktemp`
 crontab -l | grep -v firewall.tester > $tmpcron

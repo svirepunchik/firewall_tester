@@ -4,7 +4,6 @@
 # firewall test script installer
 
 iam=`whoami`
-echo $iam;
 
 if [[ $iam != "root" ]]; then echo "you must be root. please run sudo ./install.sh"; exit 1; fi
 
@@ -25,7 +24,7 @@ chmod -R a+x $optfld
 chmod -R a+r $etcfld
 
 mkdir -p /var/log
-touch /var/log/firewall.tester.log
+touch /var/log/firewall.scan.log
 
 ln -s $optfld/firewall.tester.sh $usrbin
 
