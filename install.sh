@@ -19,6 +19,7 @@ cp -rp ./hook.server.sh $optfld
 
 cp -rp ./server.list $etcfld
 cp -rp ./README.md $etcfld
+cp -rp ./LICENCE $etcfld
 
 chmod -R a+x $optfld
 chmod -R a+r $etcfld
