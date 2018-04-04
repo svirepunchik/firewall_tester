@@ -1,0 +1,9 @@
+/var/log/firewall.scan.log {
+    copytruncate
+    daily
+    rotate 14
+    compress
+    delaycompress
+    missingok
+    notifempty
+}

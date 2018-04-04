@@ -1,57 +1,124 @@
 # firewall test script
 ## In English:
-comnig soon
+firewall-tester — NMAP-based bash script for testing target server or a set of servers for an unnesessary opened ports.
+
+In normal mode it takes target server name (or server IP) and a list of allowed ports. The result is a list of opened ports, excluding the allowed. This allows you to know if target server containts unnesessary opened ports. 
+
+### Dependecies
+1. grep
+2. sed
+3. nmap
+
+On each launch script checks dependencies.
+
+### Installation
+1. download
+2. run `./install.sh`
+3. enjoy
+
+For batch mode please check:
+1. your `/etc/firewall-tester/server.list`
+2. your cron if you want to use batch mode (installer creates a file `/etc/cron.daily/firewall-tester`)
+3. your logrotate
+
+### Options
+```
+-h                              — displays short help.
+-s <server name or IP>          — sets target server. Default is 127.0.0.1.
+-a "port1, port2, ..., portN"   — sets a list of allowed to be open ports for target server. Default is "22, 80, 443".
+-l /path/to/log.file            — sets custom log file. Default is /var/log/firewall.scan.log.
+-b                              — sets batch mode. In this mode list of target servers and their allowed ports is taken from /etc/firewall-tester/server.list. Default is OFF.
+```
+There are long options also similar to short:
+```
+--help      — equal to -h
+--server    — equal to -s
+--allowed   — equal to -a
+--logfile   — equal to -l
+--batch     — equal to -b
+```
+
+### Format of /etc/firewall-tester/server.list
+```
+server1 <tab> port1, port2, ..., portN
+server2 <tab> port1, port2, ..., portN
+...
+serverN <tab> port1, port2, ..., portN
+```
+You can comment lines with `#`
+
+### Hooks
+Hooks are located in `/usr/lib/firewall-tester`.
+
+There are two files:
+
+#### hook-server.sh
+Hook is called when script detects at least one unnesessary opened port on target server. It receives three parameters:
+1. server name (or server IP)
+2. list of allowed ports
+3. list of opened ports
+
+#### hook-all.sh
+Hook is called when script detects at lease one unnesessary opened port on al least one target server. It receives nothing.
 
 ## По-русски:
-В последнее время стало мне доставаться на поддержку много серверов от, мягко говоря, странных админов. Суть в том, что (ОКАЗЫВАЕТСЯ) многие админы не следят за сетевой безопасностью вверенных им серверов — и вроде в фаерволе даже правила есть, и вроде даже fail2ban настроен на защиту 22го порта, НО... При детальном осмотре, как правило, выясняется две вещи:
-1. Несмотря на наличие правил в фаерволе, цепочка INPUT стоит в ACCEPT;
-2. fail2ban установлен, но не настроено никакое действие в нём.
+firewall-tester — bash-скрипт, использующий NMAP, для проверки открытых портов на стороннем сервере или по списку серверов.
 
-Это жопа, товарищи!
-
-Чтобы не вчитываться личшний раз в конфиги, я решил написать скрипт, который без лишнего геморроя будет сообщать, какие из портов на целевых серверах открыты, кроме портов, которые задуманы. Это удобно, чтобы понять, где настройщик фаервола ошибся.
-Конфиг серверов и положенных им открытых наружу портов лежит в файле `/etc/firewall.tester/servers.list`.
+В обычном режиме принимает на вход имя сервера (или его IP-адрес) и список разрешённых для сервера портов. На выходе будет выдан список открытых портов сервера с исключением разрешённых. Таким образом вы можете сразу узнать, что на целевом сервере есть несанкционированно открытые порты.
 
 ### Зависимости
-То, без чего скрипт работать не будет:
-1. bash ;)
-2. grep
-3. sed
-4. awk
-5. nmap (!)
+1. grep
+2. sed
+3. nmap
 
 При каждом запуске скрипт перепроверит наличие нужных утилит.
 
 ### Установка
-Всё очень просто и прозрачно — клонируемся, запускаем install.sh и радуемся. Логи глядим в `/var/log/firewall.scan.log`.
-install.sh сам создаст в cron задачу по мониторингу серверов из списка `/etc/firewall.tester/server.list`.
+1. скачиваем
+2. запускаем `./install.sh`
+3. радуемся
 
-### Batch-режим
-Формат server.list:
-`server_ip | server_name [tab] allowed_port_1,allowed_port_2,...,allowed_port_N`
+Для корректной работы batch режима проверьте:
+1. ваш `/etc/firewall-tester/server.list`
+2. ваш крон (инсталлятор создаёт `/etc/cron.daily/firewall-tester`)
+3. ваш logrotate
+
+### Опции запуска
+```
+-h                              — показывает help.
+-s <server name or IP>          — указывает целевой сервер. По-умолчанию 127.0.0.1.
+-a "port1, port2, ..., portN"   — указывает список разрешённых портов для целевого сервера. По-умолчанию "22, 80, 443".
+-l /path/to/log.file            — указывает другой лог-файл. По-умолчанию /var/log/firewall.scan.log.
+-b                              — запускает batch режим. В этом режиме список целевых серверов и их разрешённых портов берётся из /etc/firewall-tester/server.list. По-умолчанию выключен.
+```
+There are long options also similar to short:
+```
+--help      — equal to -h
+--server    — equal to -s
+--allowed   — equal to -a
+--logfile   — equal to -l
+--batch     — equal to -b
+```
+
+### Формат `/etc/firewall-tester/server.list`
+```
+server1 <tab> port1, port2, ..., portN
+server2 <tab> port1, port2, ..., portN
+...
+serverN <tab> port1, port2, ..., portN
+```
 строки можно комментировать с `#`
 
-После того, как вы заполнили server.list, задача в cron будет сама мониторить все сервера из списка, писать в лог и вызывать хуки.
-
 ### Хуки
-Возможно, вы захотите использовать хуки. Например, в режиме мониторигна по cron отправлять в мессенджер сообщение о том, что какой-то сервер открыл лишний порт.
+Хуки расположены в `/usr/lib/firewall-tester`.
 
-`hook.server.sh` — хук, вызываемый для каждого сервера, в том числе в batch режиме; в скрипт передаётся адрес сервера, список разрешённых портов, список неразрешённых открытых портов.
+В этой папке всего два файла:
 
-`hook.all.sh` — хук, вызываемый после обработки всех серверов только в batch режиме; в скрпит ничего не передаётся.
+#### hook-server.sh
+Хук вызывается6 когда скрипт обнаруживает хотя бы один открытый порт на целевом сервере, который не входит в список разрешённых. Он получает на вход три параметра: 
+1. имя сервера (или его ip)
+2. список разрешённых для этого сервера портов
+3. список открытых портов, за исключением разрешённых
 
-### Внимание! Конфиг для `logrotate` не устанавливается по-умолчанию
-Это связано с тем, что продукт может использоваться на MacOS, а где там logrotate и как он настраивается я пока не знаю.
-
-Вот вам типовой для линукса:
-```
-/var/log/firewall.scan.log {
-    copytruncate
-    daily
-    rotate 14
-    compress
-    delaycompress
-    missingok
-    notifempty
-}
-```
+#### hook-all.sh
+Хук вызывается, когда скрипт обнаруживает хотябы один открытый порт хотя бы на одном целевом сервере. На вход он не получает ничего.
