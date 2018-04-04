@@ -1,0 +1,40 @@
+.\" Manpage for firewall-tester.
+.\" Contact svirepunchik@gmail.com to correct errors or typos.
+.TH firewall-tester 1 "04 Apr 2018" "1.0" "firewall-tester man page"
+.SH NAME
+firewall-tester \- NMAP-based bash script for testing target server or a set of servers for an unnesessary opened ports.
+.SH SYNOPSIS
+firewall-tester [-h] [-s server_name|server_ip] [-a "port1, port2, ..., portN"] [-l /path/to/log.file] [-b]
+.SH DESCRIPTION
+In normal mode it takes target server name (or server IP) and a list of allowed ports. The result is a list of opened ports, excluding the allowed. This allows you to know if target server contains unnesessary opened ports.
+.SH OPTIONS
+Short:
+  -h                              — displays short help.
+  -s <server name or IP>          — sets target server. Default is 127.0.0.1.
+  -a "port1, port2, ..., portN"   — sets a list of allowed to be open ports for target server. Default is "22, 80, 443".
+  -l /path/to/log.file            — sets custom log file. Default is /var/log/firewall.scan.log.
+  -b                              — sets batch mode. In this mode list of target servers and their allowed ports is taken from /etc/firewall-tester/server.list. Default is OFF.
+  
+Long:
+  --help      — equal to -h
+  --server    — equal to -s
+  --allowed   — equal to -a
+  --logfile   — equal to -l
+  --batch     — equal to -b
+.SH FORMAT OF /etc/firewall-tester/server.list
+  server1 <tab> port1, port2, ..., portN
+  server2 <tab> port1, port2, ..., portN
+  ...
+  serverN <tab> port1, port2, ..., portN
+.SH HOOKS
+Hooks are located in /usr/lib/firewall-tester. There are two files:
+  hook-server.sh \- called when script detects at least one unnesessary opened port on target server. It receives three parameters:
+    1. server name (or server IP)
+    2. list of allowed ports
+    3. list of opened ports
+  
+  hook-all.sh \- called when script detects at lease one unnesessary opened port on al least one target server. It receives nothing.
+.SH BUGS
+No known bugs.
+.SH AUTHOR
+Dmitry Svintsov (svirepunchik@gmail.com)

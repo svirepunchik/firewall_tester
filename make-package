@@ -1,0 +1,15 @@
+#!/bin/bash
+
+gzip -n -9 ./package/usr/share/doc/firewall-tester/changelog.Debian
+gzip -n -9 ./package/usr/share/man/man1/firewall-tester.1
+gzip -n -9 ./package/usr/share/man/ru/man1/firewall-tester.1
+
+cd package
+
+md5deep -r ./ -l | grep -v DEBIAN > DEBIAN/md5sums
+
+cd ..
+
+fakeroot dpkg-deb --build package
+mv package.deb firewall-tester_1.0.2-1_all.deb
+lintian -I firewall-tester_1.0.2-1_all.deb
