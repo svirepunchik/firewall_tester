@@ -1,0 +1,3 @@
+/etc/firewall-tester/server.list
+/etc/logrotate.d/firewall-tester
+/etc/cron.daily/firewall-tester

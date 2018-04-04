@@ -1,0 +1,11 @@
+06b0e908293487440b2fde67f4c48543  ./usr/lib/firewall-tester/hook-server.sh
+4b04bcef9de0c99670abc8df30d16db6  ./usr/lib/firewall-tester/hook-all.sh
+ca99314e8aaf87ab23ae8f4b33b5664a  ./usr/share/man/man1/firewall-tester.1.gz
+504e70ac6d07db6d19f65a48990a016b  ./usr/share/man/ru/man1/firewall-tester.1.gz
+55d4ca879db11151123627efb44b69ed  ./usr/share/doc/firewall-tester/changelog.Debian.gz
+c314102f4984ac826c10cc03e5a2a66f  ./usr/share/doc/firewall-tester/README.md
+ee528a882e949211bde6aaf43042e732  ./usr/share/doc/firewall-tester/copyright
+c5c3d78d9515a3f581221e392d72c088  ./usr/sbin/firewall-tester
+5a8f26e2fb2fbb1cf8d707fb729130c5  ./etc/cron.daily/firewall-tester
+a8c89ed257626427d9f79f5239e7e144  ./etc/firewall-tester/server.list
+f1976c75eaaff82844d8f29f73ea348d  ./etc/logrotate.d/firewall-tester

@@ -1,11 +1,18 @@
 #!/bin/bash
+set -e # fail on any error
+set -u # treat unset variables as errors
 
-# svirepunchik@gmail.com (c) 2018
-# firewall test script uninstaller
+# ======[ Trap Errors ]======#
+set -E # let shell functions inherit ERR trap
 
-iam=`whoami`
-
-if [[ $iam != "root" ]]; then echo "you must be root. please run sudo ./uninstall.sh"; exit 1; fi
+# Trap non-normal exit signals:
+# 1/HUP, 2/INT, 3/QUIT, 15/TERM, ERR
+trap err_handler 1 2 3 15 ERR
+function err_handler {
+local exit_status=${1:-$?}
+logger -s -p "syslog.err" -t "FIREWALL-TESTER" "firewall-tester.deb script '$0' error code $exit_status (line $BASH_LINENO: '$BASH_COMMAND')"
+exit $exit_status
+}
 
 etcfld="/etc/firewall-tester"
 usrbin="/usr/sbin/firewall-tester"
@@ -25,11 +32,6 @@ rm -rf $man1ru
 rm -rf $cron
 rm -rf $lr
 rm -rf /var/log/firewall.scan.log
-
-tmpcron=`mktemp`
-crontab -l | grep -v firewall.tester > $tmpcron
-crontab $tmpcron
-rm -rf $tmpcron
 
 echo "uninstalled."
 
