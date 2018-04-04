@@ -5,7 +5,7 @@ Maintainer: Dmitry Svintsov <svirepunchik@gmail.com>
 Architecture: all
 Section: utils
 Description: NMAP-based bash script for scan an unnesessary opened ports on remote server.
- It takes target server's address and a list of allowed ports and shows a list of opened ports, excluding the allowed.
+ It takes target server's address and a list of allowed ports. Shows opened ports, excluding the allowed.
  .
  This allows you to know if target server contains unnesessary opened ports.
 Depends: nmap (>=7.0.1), sed (>=4.2.2), grep (>=2.25)
