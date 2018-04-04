@@ -111,7 +111,7 @@ else
     if [[ $? != 0 ]]; then
         if [[ -e $hookdir/hook-server.sh ]]; then
             echo $(date +"%Y.%m.%d %H:%M:%S") - calling per server hook | $teebin -a $logfile
-            $hookdir/hook.server.sh "$server" "$allowed" "$openports"
+            $hookdir/hook-server.sh "$server" "$allowed" "$openports"
         fi
     fi
 fi
