@@ -99,7 +99,7 @@ then
                 $hookdir/hook-server.sh "$server" "$allowed" "$openports"
             fi
         fi
-    done < etcdir/server.list
+    done < $etcdir/server.list
     if [[ $flag -eq 1 ]]; then
         if [[ -e $hookdir/hook.all.sh ]]; then
             echo $(date +"%Y.%m.%d %H:%M:%S") - calling common hook | $teebin -a $logfile
