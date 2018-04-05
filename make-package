@@ -11,5 +11,5 @@ md5deep -r ./ -l | grep -v DEBIAN > DEBIAN/md5sums
 cd ..
 
 fakeroot dpkg-deb --build package
-mv package.deb firewall-tester_1.0.2-1_all.deb
-lintian -I firewall-tester_1.0.2-1_all.deb
+mv package.deb firewall-tester_1.0.3-1_all.deb
+lintian -I firewall-tester_1.0.3-1_all.deb

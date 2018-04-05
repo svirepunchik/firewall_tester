@@ -15,8 +15,8 @@ exit $exit_status
 }
 
 etcfld="/etc/firewall-tester"
-usrbin="/usr/sbin/firewall-tester"
-hookfld="/usr/lib/firewall-tester"
+usrbin="/usr/bin/firewall-tester"
+hookfld="/usr/share/firewall-tester"
 docfld="/usr/share/doc/firewall-tester"
 man1="/usr/share/man/man1/firewall-tester.1.gz"
 man1ru="/usr/share/man/ru/man1/firewall-tester.1.gz"
