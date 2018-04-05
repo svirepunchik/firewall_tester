@@ -64,10 +64,10 @@ function check_server () {
     echo $(date +"%Y.%m.%d %H:%M:%S") - scanning server $server. allowed ports: $allowed | $teebin -a $logfile
     nmaptmp=`mktemp`
     if [[ $? -ne 0 ]]; then echo "cant create temp file."; exit 1; fi
-    $nmapbin -r -v0 -p 1-65535 --max-retries 1 -n $server -oN $nmaptmp > /dev/null
+    $nmapbin -r -v0 -sU -sT --min-parallelism 100 -PA1-65535 --max-retries 1 -T5 -n $server -oN $nmaptmp
 
     allowedgrep=`echo $allowed | $sedbin -e 's/ *, */\\\|/g'`
-    openports=`$grepbin -e '.*open.[^port]' $nmaptmp | $grepbin -v "$allowedgrep"`
+    openports=`$grepbin -e '.*open.[^port]' $nmaptmp | $grepbin -v "Not shown" | $grepbin -v "$allowedgrep"`
 
     rm -rf $nmaptmp
 
