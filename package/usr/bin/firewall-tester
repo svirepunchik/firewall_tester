@@ -20,7 +20,7 @@ server="127.0.0.1"
 allowed="22,80,443"
 logfile="/var/log/firewall.scan.log"
 etcdir="/etc/firewall-tester"
-hookdir="/usr/lib/firewall-tester"
+hookdir="/usr/share/firewall-tester"
 
 nmapbin=`which nmap`
 if [[ $? != 0 ]]; then echo "NMAP is not found. Please install NMAP."; exit 1; fi

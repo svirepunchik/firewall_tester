@@ -48,7 +48,7 @@ serverN <tab> port1, port2, ..., portN
 You can comment lines with `#`
 
 ### Hooks
-Hooks are located in `/usr/lib/firewall-tester`.
+Hooks are located in `/usr/share/firewall-tester`.
 
 There are two files:
 
@@ -110,7 +110,7 @@ serverN <tab> port1, port2, ..., portN
 строки можно комментировать с `#`
 
 ### Хуки
-Хуки расположены в `/usr/lib/firewall-tester`.
+Хуки расположены в `/usr/share/firewall-tester`.
 
 В этой папке всего два файла:
 

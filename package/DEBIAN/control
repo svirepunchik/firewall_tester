@@ -1,5 +1,5 @@
 Package: firewall-tester
-Version: 1.0.2-1
+Version: 1.0.3-1
 Provides: firewall-tester
 Maintainer: Dmitry Svintsov <svirepunchik@gmail.com>
 Architecture: all
@@ -11,6 +11,6 @@ Description: NMAP-based bash script for scan an unnesessary opened ports on remo
  .
  This allows you to know if target server contains unnesessary opened ports.
 Depends: nmap (>=7.0.1), sed (>=4.2.2), grep (>=2.25)
-Installed-Size: 120
+Installed-Size: 123
 Priority: optional
 Origin: https://github.com/svirepunchik/firewall_tester

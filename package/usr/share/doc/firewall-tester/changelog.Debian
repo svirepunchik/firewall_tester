@@ -1,3 +1,9 @@
+firewall-tester (1.0.3-1) stable; urgency=low
+
+  * Improved scan speed
+
+ -- Dmitry Svintsov <svirepunchik@gmail.com>  Wed, 04 Apr 2018 09:16:31 +0300
+
 firewall-tester (1.0.1-1) stable; urgency=low
 
   * Initial release. Closes: #12345
