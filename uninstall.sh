@@ -8,8 +8,8 @@ iam=`whoami`
 if [[ $iam != "root" ]]; then echo "you must be root. please run sudo ./uninstall.sh"; exit 1; fi
 
 etcfld="/etc/firewall-tester"
-usrbin="/usr/sbin/firewall-tester"
-hookfld="/usr/lib/firewall-tester"
+usrbin="/usr/bin/firewall-tester"
+hookfld="/usr/share/firewall-tester"
 docfld="/usr/share/doc/firewall-tester"
 man1="/usr/share/man/man1/firewall-tester.1.gz"
 man1ru="/usr/share/man/ru/man1/firewall-tester.1.gz"
@@ -27,7 +27,7 @@ rm -rf $lr
 rm -rf /var/log/firewall.scan.log
 
 tmpcron=`mktemp`
-crontab -l | grep -v firewall.tester > $tmpcron
+crontab -l | grep -v firewall-tester > $tmpcron
 crontab $tmpcron
 rm -rf $tmpcron
 
