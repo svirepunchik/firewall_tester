@@ -93,11 +93,11 @@ firewall-tester — bash-скрипт, использующий NMAP, для п�
 ```
 There are long options also similar to short:
 ```
---help      — equal to -h
---server    — equal to -s
---allowed   — equal to -a
---logfile   — equal to -l
---batch     — equal to -b
+--help      — то же, что и -h
+--server    — то же, что и -s
+--allowed   — то же, что и -a
+--logfile   — то же, что и -l
+--batch     — то же, что и -b
 ```
 
 ### Формат `/etc/firewall-tester/server.list`
